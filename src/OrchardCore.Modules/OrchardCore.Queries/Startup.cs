@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Deployment;
 using OrchardCore.DisplayManagement;
 using OrchardCore.DisplayManagement.Handlers;
-using OrchardCore.Environment.Navigation;
+using OrchardCore.Navigation;
 using OrchardCore.Liquid;
 using OrchardCore.Queries.Deployment;
 using OrchardCore.Queries.Drivers;
@@ -38,16 +38,6 @@ namespace OrchardCore.Queries
             services.AddSingleton<IDeploymentStepFactory>(new DeploymentStepFactory<AllQueriesDeploymentStep>());
             services.AddScoped<IDisplayDriver<DeploymentStep>, AllQueriesDeploymentStepDriver>();
         }
-
-        public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
-        {
-            routes.MapAreaRoute(
-                name: "Api.Queries.Query",
-                areaName: "OrchardCore.Queries",
-                template: "api/queries/{name}",
-                defaults: new { controller = "Api", action = "Query" }
-            );
-        }
     }
 
 
@@ -56,6 +46,8 @@ namespace OrchardCore.Queries
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ILiquidTemplateEventHandler, QueriesLiquidTemplateEventHandler>();
+
             services.AddLiquidFilter<QueryFilter>("query");
         }
     }

@@ -34,7 +34,9 @@ namespace OrchardCore.Flows.Drivers
 
         public override IDisplayResult Display(BagPart bagPart, BuildPartDisplayContext context)
         {
-            return Shape<BagPartViewModel>("BagPart", m =>
+            var hasItems = bagPart.ContentItems.Any();
+
+            return Initialize<BagPartViewModel>(hasItems ? "BagPart" : "BagPart_Empty", m =>
             {
                 m.BagPart = bagPart;
                 m.BuildPartDisplayContext = context;
@@ -45,7 +47,7 @@ namespace OrchardCore.Flows.Drivers
 
         public override IDisplayResult Edit(BagPart bagPart, BuildPartEditorContext context)
         {
-            return Shape<BagPartEditViewModel>("BagPart_Edit", m =>
+            return Initialize<BagPartEditViewModel>("BagPart_Edit", m =>
             {
                 m.BagPart = bagPart;
                 m.Updater = context.Updater;
