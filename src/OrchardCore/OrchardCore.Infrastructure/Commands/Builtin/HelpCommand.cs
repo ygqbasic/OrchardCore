@@ -23,7 +23,7 @@ namespace OrchardCore.Environment.Commands.Builtin
         public async Task AllCommandsAsync()
         {
             await Context.Output.WriteLineAsync(T["List of available commands:"]);
-            await Context.Output.WriteLineAsync(T["---------------------------"]);
+            await Context.Output.WriteLineAsync("---------------------------");
             await Context.Output.WriteLineAsync();
 
             var descriptors = GetCommandDescriptors().OrderBy(d => d.Names.First());

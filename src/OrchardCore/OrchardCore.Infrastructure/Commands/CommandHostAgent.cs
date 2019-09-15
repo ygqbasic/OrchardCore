@@ -90,9 +90,9 @@ namespace OrchardCore.Environment.Commands
 
             // Display inner most exception details
             exception = errors.Peek();
-            await output.WriteLineAsync(T["--------------------------------------------------------------------------------"]);
+            await output.WriteLineAsync("--------------------------------------------------------------------------------");
             await output.WriteLineAsync();
-            await output.WriteLineAsync(T["{0}", exception.Message]);
+            await output.WriteLineAsync(exception.Message);
             await output.WriteLineAsync();
 
             if (!(exception.InnerException == null))
@@ -105,8 +105,8 @@ namespace OrchardCore.Environment.Commands
                 // Display exceptions from inner most to outer most
                 foreach (var error in errors)
                 {
-                    await output.WriteLineAsync(T["[{0}: {1}]", error.GetType().Name, error.Message]);
-                    await output.WriteLineAsync(T["{0}", error.StackTrace]);
+                    await output.WriteLineAsync($"[{error.GetType().Name}: {error.Message}]");
+                    await output.WriteLineAsync(error.StackTrace);
                     await output.WriteLineAsync();
                 }
             }

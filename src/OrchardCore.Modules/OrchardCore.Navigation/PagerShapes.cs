@@ -194,11 +194,11 @@ namespace OrchardCore.Navigation
             }
 
 
-            var firstText = FirstText ?? T["<<"];
-            var previousText = PreviousText ?? T["<"];
-            var nextText = NextText ?? T[">"];
-            var lastText = LastText ?? T[">>"];
-            var gapText = GapText ?? T["..."];
+            var firstText = FirstText ?? "<<";
+            var previousText = PreviousText ?? "<";
+            var nextText = NextText ?? ">";
+            var lastText = LastText ?? ">>";
+            var gapText = GapText ?? "...";
 
             var httpContextAccessor = DisplayContext.ServiceProvider.GetService<IHttpContextAccessor>();
             var httpContext = httpContextAccessor.HttpContext;
