@@ -1,14 +1,15 @@
 @{
     TagBuilder tag = Tag(Model, "ul");
 
-
+    tag.Attributes["lay-filter"] = "test";
+    tag.AddCssClass("layui-nav layui-nav-tree");
     foreach (var item in Model)
     {
         tag.InnerHtml.AppendHtml(await DisplayAsync(item));
     }
 }
 
-<nav id="left-nav">
+
     @tag
-</nav>
+
 <!-- Menu rendered on @DateTime.UtcNow.ToString("r") -->

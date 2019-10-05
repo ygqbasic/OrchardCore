@@ -5,25 +5,25 @@
     Model.Metadata.Alternates.Clear();
     Model.Metadata.Type = "NavigationItemLink";
     Model.Metadata.Alternates.Add("NavigationItemLink_Id__" + Model.Id);
-
+    tag.AddCssClass("layui-nav-item");
     if ((bool)Model.Selected)
     {
-        tag.AddCssClass("active");
+        tag.AddCssClass("layui-nav-itemed");
     }
 
     // Render sub-items (MenuItem)
     if (Model.HasItems)
     {
-        tag.AddCssClass("has-items");
+        // tag.AddCssClass("layui-nav-child");
         tag.InnerHtml.AppendHtml(await DisplayAsync(Model));
 
         if ((bool)Model.Selected)
         {
-            tag.InnerHtml.AppendHtml("<ul id=\"m" + Model.GetHashCode() + "\" class=\"collapse show\" >");
+            tag.InnerHtml.AppendHtml("<ul id=\"m" + Model.GetHashCode() + "\" class=\"layui-nav-child\" >");
         }
         else
         {
-            tag.InnerHtml.AppendHtml("<ul id=\"m" + Model.GetHashCode() + "\" class=\"collapse\" >");
+            tag.InnerHtml.AppendHtml("<ul id=\"m" + Model.GetHashCode() + "\" class=\"layui-nav-child\" >");
         }
 
         foreach (var item in Model)

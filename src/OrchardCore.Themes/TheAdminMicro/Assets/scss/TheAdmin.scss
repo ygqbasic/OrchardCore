@@ -87,6 +87,7 @@ body {
     margin-right: 24px;
     padding-left: 36px;
     padding-top: 10px;
+    background-color: #03152A;
     background-image: url(../logo.png);
     background-repeat: no-repeat;
     background-position: left center;
@@ -370,7 +371,8 @@ body:not(.left-sidebar-compact) {
         }
 
         li.active > .item-label {
-            background-color: rgba(0, 0, 0, 0.05);
+            // background-color: rgba(0, 0, 0, 0.05);
+            background-color: rgba(0, 0, 0, 1);
             font-weight: 600;
         }
 
@@ -786,6 +788,10 @@ body:not(.left-sidebar-compact) {
             left: 0;
             position: absolute;
             top: 0;
+        }
+
+        li.active > ul > li > .d-flex > a {
+            padding-left: 60px;
         }
 
         li.has-items.active > .item-label {

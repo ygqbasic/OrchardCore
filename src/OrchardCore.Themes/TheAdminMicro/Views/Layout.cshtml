@@ -6,58 +6,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link type="image/x-icon" rel="shortcut icon" href="~/TheAdmin/favicon.ico" />
+    <!-- Layui -->
+    <style asp-name="adminmicro" asp-src="~/TheAdminMicro/layui/css/layui.css" debug-src="~/TheAdminMicro//layui/css/layui.css" depends-on="jQuery-ui"></style>
 
     <!-- Bootstrap CSS -->
-    <style asp-name="admin" asp-src="~/TheAdmin/Styles/TheAdmin.min.css" debug-src="~/TheAdmin/Styles/TheAdmin.css" depends-on="jQuery-ui"></style>
+    <style asp-name="admin" asp-src="~/TheAdminMicro/Styles/TheAdmin.min.css" debug-src="~/TheAdminMicro/Styles/TheAdmin.css" depends-on="jQuery-ui"></style>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <script asp-name="font-awesome" at="Foot" version="5"></script>
     <script asp-name="font-awesome-v4-shims" at="Foot" version="5"></script>
-    <script asp-name="admin" asp-src="~/TheAdmin/Scripts/TheAdmin.min.js" debug-src="~/TheAdmin/Scripts/TheAdmin.js" depends-on="jQuery, jQuery-ui, jQuery-ui-i18n" at="Foot"></script>
+    <script asp-name="admin" asp-src="~/TheAdminMicro/Scripts/TheAdmin.min.js" debug-src="~/TheAdminMicro/Scripts/TheAdmin.js" depends-on="jQuery, jQuery-ui, jQuery-ui-i18n" at="Foot"></script>
+    <script asp-name="adminmicro" asp-src="~/TheAdminMicro/layui/layui.all.js" debug-src="~/TheAdminMicro/layui/layui.all.js" depends-on="jQuery, jQuery-ui, jQuery-ui-i18n" at="Foot"></script>
     <resources type="Header" />
 
     <!-- This script can't wait to the footer -->
-    <script type="text/javascript" asp-src="~/TheAdmin/Scripts/userPreferencesLoader.min.js" debug-src="~/TheAdmin/Scripts/userPreferencesLoader.js"></script>
+    <script type="text/javascript" asp-src="~/TheAdminMicro/Scripts/userPreferencesLoader.min.js" debug-src="~/TheAdminMicro/Scripts/userPreferencesLoader.js"></script>
 
     @await RenderSectionAsync("Header", required: false)
 </head>
-<body class="preload">
-    <div class="ta-wrapper">
-        <div class="ta-navbar-top">
-            <a class="ta-navbar-brand" href="@Url.Content("~/")"><span>@Site.SiteName</span></a>
-            <div class="collapse navbar-collapse" id="navbar-links">
-                <div class="mr-auto">
-                    @await RenderSectionAsync("NavbarTop", required: false)
-                </div>
-                <ul class="nav navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link"><span><i class="fa fa-user" aria-hidden="true"></i></span><span> @User.Identity.Name</span></a>
-                    </li>
-                </ul>
-                <form asp-route-area="OrchardCore.Users" asp-controller="Account" asp-action="LogOff" method="post" class="form-inline">
-                    <button type="submit" class="btn btn-link nav-link" role="button"><i class="fa fa-sign-out" aria-hidden="true"></i> @T["Log off"]</button>
-                </form>
-            </div>
-        </div>
+<body class="preload layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo"><a href="@Url.Content("~/")"><span>@Site.SiteName</span></a></div>
+             @await RenderSectionAsync("NavbarTop", required: false)
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <!-- <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">控制台</a></li>
+                <li class="layui-nav-item"><a href="">商品管理</a></li>
+                <li class="layui-nav-item"><a href="">用户</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                    </dl>
+                </li>
+            </ul> -->
 
-        <div id="ta-left-sidebar" class="d-flex flex-column justify-content-between align-items-stretch">
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    @User.Identity.Name
+                    </a>
+                    <!-- <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                    </dl> -->
+                </li>
+                <li class="layui-nav-item"> 
+                    <a href="javascript:;">            
+                        <form asp-route-area="OrchardCore.Users" asp-controller="Account" asp-action="LogOff" method="post" class="form-inline">
+                            <button type="submit" class="btn btn-link nav-link" role="button"><i class="fa fa-sign-out" aria-hidden="true"></i> @T["Log off"]</button>
+                        </form>
+                    </a> 
+                </li>
+            </ul>
+        </div>
+        
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             @await RenderSectionAsync("Navigation", required: false)
-            <div class="footer">
-                <button class="leftbar-compactor" type="button" title="@T["Collapse / expand menu"]"></button>
+                <!-- <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">所有商品</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">列表一</a></dd>
+                        <dd><a href="javascript:;">列表二</a></dd>
+                        <dd><a href="javascript:;">列表三</a></dd>
+                        <dd><a href="">超链接</a></dd>
+                    </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                    <a href="javascript:;">解决方案</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">列表一</a></dd>
+                        <dd><a href="javascript:;">列表二</a></dd>
+                        <dd><a href="">超链接</a></dd>
+                    </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="">云市场</a></li>
+                    <li class="layui-nav-item"><a href="">发布商品</a></li>
+                </ul> -->
             </div>
         </div>
+        
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
 
-        <div class="ta-content">
-            @await RenderSectionAsync("Messages", required: false)
-
-            @await RenderBodyAsync()
+            <div style="padding: 15px;">            
+                @await RenderSectionAsync("Messages", required: false)
+                @await RenderBodyAsync()
+            </div>
         </div>
-    </div><!-- /.ta-wrapper -->
-
-    @await RenderSectionAsync("Footer", required: false)
+        
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            @await RenderSectionAsync("Footer", required: false)
+        </div>
+    </div>
 
     <div id="confirmRemoveModalMetadata" data-title="@T["Delete"]" data-message="@T["Are you sure you want to remove this element?"]" data-ok="@T["Ok"]" data-cancel="@T["Cancel"]" data-ok-class="btn-danger" data-cancel-class="btn-secondary"></div>
 
     <resources type="Footer" />
+    <script>
+        //JavaScript代码区域
+        layui.use('element', function(){
+        var element = layui.element;
+        
+        });
+    </script>
 </body>
 </html>
