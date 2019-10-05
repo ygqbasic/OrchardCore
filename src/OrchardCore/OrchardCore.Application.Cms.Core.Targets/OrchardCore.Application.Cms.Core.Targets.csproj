@@ -94,6 +94,8 @@
     <ProjectReference Include="..\..\OrchardCore.Modules\OrchardCore.XmlRpc\OrchardCore.XmlRpc.csproj" PrivateAssets="none" />
     
     <ProjectReference Include="..\..\OrchardCore.Themes\TheAdmin\TheAdmin.csproj" PrivateAssets="none" />
+
+    <ProjectReference Include="..\..\OrchardCore.Themes\TheAdminMicro\TheAdminMicro.csproj" PrivateAssets="none" />
   </ItemGroup>
 
 </Project>
